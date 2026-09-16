@@ -1,0 +1,13 @@
+kind: API
+apiVersion: api.ibm.com/v1
+metadata:
+  name: WeatherApi
+  namespace: DPv6_Product_Weather
+  version: '1.0'
+  tags: []
+  type: REST
+spec:
+  api-spec:
+    $path: ./WeatherApi-spec.yml
+  policy-sequence:
+    - $ref: DPv6_Product_Weather:DPv6_Assembly:1.0

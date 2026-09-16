@@ -1,0 +1,17 @@
+kind: Quota
+apiVersion: api.ibm.com/v1
+metadata:
+  name: DPv6_Quota
+  namespace: DPv6_Product_MultiAPI
+  version: '1.0'
+  tags:
+    - quota
+  description: ''
+spec:
+  maxRequest: 100
+  interval: 1m
+  extensions:
+    dp-gateway:
+      apiVersion: api.ibm.com/v1
+      spec:
+        onLimitReach: block

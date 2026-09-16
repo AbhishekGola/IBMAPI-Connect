@@ -1,0 +1,23 @@
+kind: test
+apiVersion: api.ibm.com/v1
+metadata:
+  namespace: DPv6_Product_Weather
+  name: Sanity_Test
+  version: '1.0'
+  tags:
+    - sanity-test
+spec:
+  api:
+    $endpoint: ''
+  environment:
+    $ref: DPv6_Product_Weather:Default_Environment:1.0
+  request:
+    - method: GET
+      resource: /air-temperature
+      headers:
+        - key: X-IBM-Client-Id
+          value: ${ClientIdDpV6}
+      auth:
+        noauth: true
+      assertions:
+        - $ref: DPv6_Product_Weather:Basic_Assertion:1.0

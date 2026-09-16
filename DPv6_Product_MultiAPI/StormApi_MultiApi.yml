@@ -1,0 +1,14 @@
+kind: API
+apiVersion: api.ibm.com/v1
+metadata:
+  name: StormApi_MultiApi
+  namespace: DPv6_Product_MultiAPI
+  version: '1.0'
+  tags:
+    - api
+  type: REST
+spec:
+  api-spec:
+    $path: ./StormAPI-spec.yml
+  policy-sequence:
+    - $ref: DPv6_Product_MultiAPI:DPv6_Assembly:1.0

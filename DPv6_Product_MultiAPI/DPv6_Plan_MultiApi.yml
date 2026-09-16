@@ -1,0 +1,27 @@
+kind: Plan
+apiVersion: api.ibm.com/v1
+metadata:
+  name: DPv6_Plan_MultiApi
+  namespace: DPv6_Product_MultiAPI
+  version: '1.0'
+  tags:
+    - plan
+spec:
+  qos:
+    withQuota:
+      plan-limit:
+        - $ref: DPv6_Product_MultiAPI:DPv6_Quota:1.0
+  extensions:
+    dp-gateway:
+      apiVersion: api.ibm.com/v1
+      spec:
+        approvalRequired: false
+        apis:
+          - $ref: DPv6_Product_MultiAPI:WeatherApi_MultiApi:1.0
+            operations:
+              - path: /air-temperature
+                method: get
+          - $ref: DPv6_Product_MultiAPI:StormApi_MultiApi:1.0
+            operations:
+              - path: /air-temperature
+                method: get

@@ -1,0 +1,45 @@
+kind: DataPowerAssembly
+apiVersion: api.ibm.com/v1
+metadata:
+  name: DPv6_Assembly
+  namespace: DPv6_Product_MultiAPI
+  version: '1.0'
+  tags: []
+  labels:
+    gatewayTypes:
+      - datapower
+spec:
+  x-ibm-configuration:
+    enforced: true
+    cors:
+      enabled: true
+    testable: true
+    phase: realized
+    gateway: datapower-api-gateway
+    assembly:
+      execute:
+        - invoke:
+            version: 2.3.0
+            title: invoke
+            backend-type: detect
+            header-control:
+              type: allowlist
+              values: []
+            parameter-control:
+              type: allowlist
+              values: []
+            http-version: HTTP/1.1
+            timeout: 60
+            verb: keep
+            chunked-uploads: true
+            persistent-connection: true
+            cache-response: protocol
+            cache-ttl: 900
+            websocket-upgrade: false
+            graphql-send-type: detect
+            target-url: >-
+              https://sample-api.eu-west-a.apiconnect.automation.ibm.com/environment$(api.operation.path)
+    activity-log:
+      enabled: true
+      success-content: activity
+      error-content: header

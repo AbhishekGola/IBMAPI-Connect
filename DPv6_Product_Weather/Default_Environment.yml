@@ -1,0 +1,12 @@
+kind: environment
+apiVersion: api.ibm.com/v1
+metadata:
+  name: Default_Environment
+  version: '1.0'
+  namespace: DPv6_Product_Weather
+  tags: []
+spec:
+  variables:
+    - key: ClientIdDpV6
+      isSecret: true
+      value: $(ClientIdDpV6)

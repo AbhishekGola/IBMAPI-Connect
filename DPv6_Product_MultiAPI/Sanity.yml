@@ -1,0 +1,26 @@
+kind: test
+apiVersion: api.ibm.com/v1
+metadata:
+  name: Sanity
+  namespace: DPv6_Product_MultiAPI
+  version: '1.0'
+  tags:
+    - sanity-test
+spec:
+  api:
+    $ref: DPv6_Product_MultiAPI:WeatherApi_MultiApi:1.0
+  request:
+    - method: GET
+      resource: /pet/{petId}
+      headers:
+        - key: X-IBM-Client-Id
+          value: ${clientId}
+      auth:
+        noauth: true
+      parameters:
+        - key: petId
+          value: 1
+      assertions:
+        - $ref: DPv6_Product_MultiAPI:Basic_Assertion:1.0
+  environment:
+    $ref: DPv6_Product_MultiAPI:Default_Environment:1.0

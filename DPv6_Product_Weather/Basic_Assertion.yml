@@ -1,0 +1,12 @@
+kind: assertion
+apiVersion: api.ibm.com/v1
+metadata:
+  name: Basic_Assertion
+  namespace: DPv6_Product_Weather
+  version: '1.0'
+  tags: []
+spec:
+  - name: responseStatus
+    key: responseStatus
+    value: 200
+    action: equals
