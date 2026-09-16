@@ -1,0 +1,14 @@
+kind: Plan
+apiVersion: api.ibm.com/v1
+metadata:
+  name: DPv5c_Plan
+  namespace: DPv5c_Product_Order
+  version: '1.0'
+  tags:
+    - plan
+  description: ''
+spec:
+  qos:
+    withQuota:
+      plan-limit:
+        - $ref: DPv5c_Product_Order:DPv5c_Quota:1.0

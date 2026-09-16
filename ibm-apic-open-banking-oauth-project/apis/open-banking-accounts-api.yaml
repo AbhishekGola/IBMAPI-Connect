@@ -1,0 +1,132 @@
+swagger: '2.0'
+info:
+  title: Open Banking Accounts API Proxy
+  version: 1.0.0
+  description: Sandbox AISP-style accounts proxy protected by OAuth scopes.
+x-ibm-name: open-banking-accounts-api
+basePath: /open-banking/v3.1/aisp
+schemes: [https]
+produces: [application/json]
+consumes: [application/json]
+securityDefinitions:
+  clientId:
+    type: apiKey
+    in: header
+    name: X-IBM-Client-Id
+    x-key-type: client_id
+  oauth:
+    type: oauth2
+    flow: accessCode
+    authorizationUrl: https://REPLACE-CATALOG-GATEWAY/open-banking/oauth2/authorize
+    tokenUrl: https://REPLACE-CATALOG-GATEWAY/open-banking/oauth2/token
+    scopes:
+      accounts: Read account details
+      transactions: Read account transactions
+security:
+  - clientId: []
+    oauth: [accounts]
+paths:
+  /accounts:
+    get:
+      operationId: listAccounts
+      summary: List accounts available to the consented customer
+      responses:
+        '200':
+          description: Account list
+          schema:
+            $ref: '#/definitions/AccountResponse'
+  /accounts/{AccountId}/transactions:
+    get:
+      operationId: listTransactions
+      summary: List transactions for an account
+      security:
+        - clientId: []
+          oauth: [accounts, transactions]
+      parameters:
+        - name: AccountId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Transaction list
+          schema:
+            $ref: '#/definitions/TransactionResponse'
+definitions:
+  AccountResponse:
+    type: object
+    properties:
+      Data:
+        type: object
+        properties:
+          Account:
+            type: array
+            items:
+              type: object
+              properties:
+                AccountId: {type: string}
+                Currency: {type: string}
+                AccountType: {type: string}
+                Nickname: {type: string}
+  TransactionResponse:
+    type: object
+    properties:
+      Data:
+        type: object
+        properties:
+          Transaction:
+            type: array
+            items:
+              type: object
+              properties:
+                TransactionId: {type: string}
+                AccountId: {type: string}
+                Amount:
+                  type: object
+                  properties:
+                    Amount: {type: string}
+                    Currency: {type: string}
+                CreditDebitIndicator: {type: string}
+                BookingDateTime: {type: string, format: date-time}
+x-ibm-configuration:
+  gateway: datapower-api-gateway
+  type: rest
+  phase: realized
+  enforced: true
+  testable: true
+  cors:
+    enabled: false
+  properties:
+    target-url:
+      value: http://mock-backend:8080
+      description: Override for each environment.
+      encoded: false
+  activity-log:
+    enabled: true
+    success-content: activity
+    error-content: payload
+  assembly:
+    execute:
+      - set-variable:
+          version: 2.0.0
+          title: Set correlation ID
+          actions:
+            - set: message.headers.x-fapi-interaction-id
+              value: $(request.headers.x-fapi-interaction-id)
+              type: string
+      - invoke:
+          version: 2.3.0
+          title: Invoke Open Banking resource server
+          backend-type: detect
+          header-control:
+            type: blocklist
+            values: []
+          parameter-control:
+            type: allowlist
+            values: []
+          timeout: 30
+          verb: keep
+          chunked-uploads: true
+          persistent-connection: true
+          target-url: $(target-url)$(request.path)
+          follow-redirects: false

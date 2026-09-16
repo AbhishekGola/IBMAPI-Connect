@@ -1,0 +1,13 @@
+kind: API
+apiVersion: api.ibm.com/v1
+metadata:
+  name: OB-APIC-Test
+  version: '1.0'
+  namespace: OB-ReverseProxy-test
+  tags: []
+  type: REST
+spec:
+  api-spec:
+    $path: ./ob-apic-test-spec.yml
+  policy-sequence:
+    - $ref: OB-ReverseProxy-test:policy-test:1.0

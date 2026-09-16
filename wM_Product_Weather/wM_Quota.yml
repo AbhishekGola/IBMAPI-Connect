@@ -1,0 +1,24 @@
+kind: Quota
+apiVersion: api.ibm.com/v1
+metadata:
+  name: wM_Quota
+  namespace: wM_Product_Weather
+  version: '1.0'
+  tags: []
+  description: ''
+spec:
+  maxRequest: 100
+  interval: 1m
+  extensions:
+    webm-gateway:
+      apiVersion: api.ibm.com/v1
+      spec:
+        alertMessage: Too many requests
+        alertFrequency: always
+        onLimitReach: block
+        notification:
+          enabled: true
+          notifyAfter: '90'
+          message: 90% quota used!!
+          email:
+            - xyz@example.com

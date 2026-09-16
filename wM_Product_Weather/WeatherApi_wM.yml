@@ -1,0 +1,13 @@
+kind: API
+apiVersion: api.ibm.com/v1
+metadata:
+  name: WeatherApi_wM
+  namespace: wM_Product_Weather
+  version: '1.0'
+  tags: []
+  type: REST
+spec:
+  api-spec:
+    $path: ./WeatherApi_wM-spec.yml
+  policy-sequence:
+    - $ref: wM_Product_Weather:wM_PolicySequence:1.0

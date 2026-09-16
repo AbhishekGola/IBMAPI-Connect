@@ -1,0 +1,16 @@
+kind: Quota
+apiVersion: api.ibm.com/v1
+metadata:
+  name: DPv5c_Quota
+  namespace: DPv5c_Product_Order
+  version: '1.0'
+  tags: []
+  description: ''
+spec:
+  maxRequest: 5
+  interval: 1m
+  extensions:
+    dp-gateway:
+      apiVersion: api.ibm.com/v1
+      spec:
+        onLimitReach: block

@@ -1,0 +1,25 @@
+kind: test
+apiVersion: api.ibm.com/v1
+metadata:
+  name: Sanity_Test
+  namespace: DPv5c_Product_Order
+  version: '1.0'
+  tags: []
+spec:
+  api:
+    $ref: DPv5c_Product_Order:OrderApi:1.0
+  request:
+    - method: GET
+      resource: /{order-number}
+      headers:
+        - key: X-IBM-Client-Id
+          value: ${clientId}
+      auth:
+        noauth: true
+      assertions:
+        - $ref: DPv5c_Product_Order:Basic_Assertion:1.0
+      parameters:
+        - key: order-number
+          value: 1
+  environment:
+    $ref: DPv5c_Product_Order:Default_Environment:1.0

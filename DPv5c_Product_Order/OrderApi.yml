@@ -1,0 +1,13 @@
+kind: API
+apiVersion: api.ibm.com/v1
+metadata:
+  name: OrderApi
+  namespace: DPv5c_Product_Order
+  version: '1.0'
+  tags: []
+  type: REST
+spec:
+  api-spec:
+    $path: ./OrderApi-spec.json
+  policy-sequence:
+    - $ref: DPv5c_Product_Order:DPv5c_Assembly:1.0

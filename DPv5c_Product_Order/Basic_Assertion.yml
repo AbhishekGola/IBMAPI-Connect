@@ -1,0 +1,13 @@
+kind: assertion
+apiVersion: api.ibm.com/v1
+metadata:
+  name: Basic_Assertion
+  namespace: DPv5c_Product_Order
+  version: '1.0'
+  tags:
+    - assertion
+spec:
+  - name: Status
+    key: responseStatus
+    value: 200
+    action: equals

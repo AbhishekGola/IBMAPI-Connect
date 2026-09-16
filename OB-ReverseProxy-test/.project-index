@@ -1,0 +1,76 @@
+{
+  "nodes": [
+    {
+      "id": "105443f2-13a3-45f9-94b3-ef88a299b9f0:0",
+      "projectId": "gO3HU7Xe",
+      "filePath": "OB-ReverseProxy-test/policy-test.yml",
+      "docIndex": 0,
+      "assetType": "resource",
+      "lastIndexed": 1789095750046,
+      "schemaVersion": 1,
+      "kind": "DataPowerAssembly",
+      "name": "policy-test",
+      "namespace": "OB-ReverseProxy-test",
+      "version": "1.0",
+      "contentHash": "00ffafe083fc3c9b"
+    },
+    {
+      "id": "11a9858e-07e2-4ceb-bef5-bd7b0d72ac35:0",
+      "projectId": "gO3HU7Xe",
+      "filePath": "OB-ReverseProxy-test/ob-apic-test-spec.yml",
+      "docIndex": 0,
+      "assetType": "support",
+      "lastIndexed": 1789095701686,
+      "schemaVersion": 1
+    },
+    {
+      "id": "2759457a-e122-4584-aafe-f0d7c7fea998:0",
+      "projectId": "gO3HU7Xe",
+      "filePath": "OB-ReverseProxy-test/OB-APIC-Test.yaml",
+      "docIndex": 0,
+      "assetType": "resource",
+      "lastIndexed": 1789095750310,
+      "schemaVersion": 1,
+      "kind": "API",
+      "name": "OB-APIC-Test",
+      "namespace": "OB-ReverseProxy-test",
+      "version": "1.0",
+      "contentHash": "d03e2d64bf49b087"
+    },
+    {
+      "id": "d64de0f6-10a3-4a1b-a000-67ed19e92d68:0",
+      "projectId": "gO3HU7Xe",
+      "filePath": "OB-ReverseProxy-test/.project-index",
+      "docIndex": 0,
+      "assetType": "support",
+      "lastIndexed": 1789337299019,
+      "schemaVersion": 1
+    }
+  ],
+  "edges": [
+    {
+      "id": "1860b219-4ece-4d12-83f7-2a5a5fb36d87",
+      "projectId": "gO3HU7Xe",
+      "sourceNodeId": "2759457a-e122-4584-aafe-f0d7c7fea998:0",
+      "targetNodeId": "11a9858e-07e2-4ceb-bef5-bd7b0d72ac35:0",
+      "targetRefType": "same-project",
+      "targetRefString": "./ob-apic-test-spec.yml",
+      "targetRefKind": "support",
+      "isValid": true,
+      "createdAt": 1789095701819,
+      "lastValidated": 1789095701819
+    },
+    {
+      "id": "69a2be8a-24bf-4ec0-9485-6340fb6e48f3",
+      "projectId": "gO3HU7Xe",
+      "sourceNodeId": "2759457a-e122-4584-aafe-f0d7c7fea998:0",
+      "targetNodeId": "105443f2-13a3-45f9-94b3-ef88a299b9f0:0",
+      "targetRefType": "same-project",
+      "targetRefString": "OB-ReverseProxy-test:policy-test:1.0",
+      "targetRefKind": "resource",
+      "isValid": true,
+      "createdAt": 1789095750320,
+      "lastValidated": 1789095750320
+    }
+  ]
+}

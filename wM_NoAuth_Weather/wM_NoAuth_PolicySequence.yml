@@ -1,0 +1,15 @@
+kind: StagedPolicySequence
+apiVersion: api.ibm.com/v1
+metadata:
+  name: wM_NoAuth_PolicySequence
+  namespace: wM_NoAuth_Weather
+  version: '1.0'
+  tags: []
+  labels:
+    gatewayTypes:
+      - webMethods
+spec:
+  routing:
+    - $ref: wM_NoAuth_Weather:wM_NoAuth_Invoke:1.0
+  monitoring:
+    - $ref: wM_NoAuth_Weather:wM_NoAuth_Log:1.0

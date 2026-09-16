@@ -1,0 +1,17 @@
+kind: Product
+apiVersion: api.ibm.com/v1
+metadata:
+  name: Dpv6_Calculator_Product
+  namespace: DPv6_Product_Calculator_Soap
+  version: '1.0'
+  tags: []
+  description: >-
+    This product exposes the Calculator SOAP API through the IBM DataPower v6
+    gateway. It provides core arithmetic operations including addition,
+    subtraction, multiplication, and division. Consumers can subscribe via the
+    associated plan to gain access to the underlying Calculator API.
+spec:
+  apis:
+    - $ref: DPv6_Product_Calculator_Soap:CalculatorApi:1.0
+  plans:
+    - $ref: DPv6_Product_Calculator_Soap:DPv6_Calculator_Plan:1.0

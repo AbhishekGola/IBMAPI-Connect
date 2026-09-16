@@ -1,0 +1,73 @@
+swagger: '2.0'
+info:
+  title: Open Banking OAuth Provider PoC
+  version: 1.0.0
+  description: >-
+    Native APIC OAuth provider for sandbox learning only. Production Open
+    Banking needs FAPI controls, private_key_jwt, PAR/JARM, mTLS and
+    directory-led client onboarding.
+x-ibm-name: open-banking-oauth-provider
+basePath: /open-banking/oauth2
+schemes:
+  - https
+produces:
+  - application/json
+consumes:
+  - application/x-www-form-urlencoded
+securityDefinitions:
+  oauth:
+    type: oauth2
+    flow: accessCode
+    authorizationUrl: https://REPLACE-CATALOG-GATEWAY/open-banking/oauth2/authorize
+    tokenUrl: https://REPLACE-CATALOG-GATEWAY/open-banking/oauth2/token
+    scopes:
+      accounts: Read account details
+      transactions: Read account transactions
+paths:
+  /authorize:
+    get:
+      responses:
+        '200':
+          description: OAuth authorisation endpoint
+  /token:
+    post:
+      responses:
+        '200':
+          description: OAuth token endpoint
+  /introspect:
+    post:
+      responses:
+        '200':
+          description: OAuth token introspection endpoint
+  /revoke:
+    post:
+      responses:
+        '200':
+          description: OAuth token revocation endpoint
+x-ibm-configuration:
+  gateway: datapower-api-gateway
+  type: oauth
+  phase: realized
+  enforced: true
+  testable: true
+  oauth2:
+    client-type: confidential
+    scopes:
+      accounts: Read account details
+      transactions: Read account transactions
+    grants:
+      - authorization_code
+      - refresh_token
+    identity-extraction:
+      type: default_form
+    authentication:
+      x-ibm-authentication-url:
+        url: https://REPLACE-AUTHENTICATION-SERVICE/authenticate
+    authorization:
+      type: authenticated
+    access-token:
+      ttl: 3600
+    refresh-token:
+      ttl: 2592000
+    revocation:
+      enabled: true

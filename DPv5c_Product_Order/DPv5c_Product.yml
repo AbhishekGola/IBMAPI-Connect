@@ -1,0 +1,14 @@
+kind: Product
+apiVersion: api.ibm.com/v1
+metadata:
+  name: DPv5c_Product
+  namespace: DPv5c_Product_Order
+  version: '1.0'
+  tags:
+    - product
+  description: ''
+spec:
+  apis:
+    - $ref: DPv5c_Product_Order:OrderApi:1.0
+  plans:
+    - $ref: DPv5c_Product_Order:DPv5c_Plan:1.0

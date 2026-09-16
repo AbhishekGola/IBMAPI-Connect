@@ -1,0 +1,34 @@
+kind: DataPowerAssembly
+apiVersion: api.ibm.com/v1
+metadata:
+  name: DPv5c_Assembly
+  namespace: DPv5c_Product_Order
+  version: '1.0'
+  tags: []
+  labels:
+    gatewayTypes:
+      - datapower-v5
+spec:
+  x-ibm-configuration:
+    gateway: datapower-gateway
+    cors:
+      enabled: true
+    type: rest
+    phase: realized
+    enforced: true
+    testable: true
+    assembly:
+      execute:
+        - invoke:
+            version: 1.0.0
+            title: invoke
+            timeout: 60
+            verb: keep
+            cache-response: protocol
+            cache-ttl: 900
+            target-url: >-
+              https://sample-api.us-east-a.apiconnect.automation.ibm.com/orders/order$(api.operation.path)
+    activity-log:
+      enabled: true
+      success-content: activity
+      error-content: payload

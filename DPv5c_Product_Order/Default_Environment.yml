@@ -1,0 +1,12 @@
+kind: environment
+apiVersion: api.ibm.com/v1
+metadata:
+  name: Default_Environment
+  version: '1.0'
+  namespace: DPv5c_Product_Order
+  tags: []
+spec:
+  variables:
+    - key: clientId
+      isSecret: true
+      value: $(clientId)

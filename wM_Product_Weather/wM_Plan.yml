@@ -1,0 +1,14 @@
+kind: Plan
+apiVersion: api.ibm.com/v1
+metadata:
+  name: wM_Plan
+  namespace: wM_Product_Weather
+  version: '1.0'
+  tags:
+    - plan
+  description: ''
+spec:
+  qos:
+    withQuota:
+      plan-limit:
+        - $ref: wM_Product_Weather:wM_Quota:1.0

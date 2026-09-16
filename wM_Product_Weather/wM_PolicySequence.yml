@@ -1,0 +1,15 @@
+kind: StagedPolicySequence
+apiVersion: api.ibm.com/v1
+metadata:
+  name: wM_PolicySequence
+  namespace: wM_Product_Weather
+  version: '1.0'
+  tags: []
+  labels:
+    gatewayTypes:
+      - webMethods
+spec:
+  routing:
+    - $ref: wM_Product_Weather:wM_Invoke:1.0
+  monitoring:
+    - $ref: wM_Product_Weather:wM_Log:1.0

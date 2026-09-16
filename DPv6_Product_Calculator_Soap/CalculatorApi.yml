@@ -1,0 +1,15 @@
+kind: API
+apiVersion: api.ibm.com/v1
+metadata:
+  name: CalculatorApi
+  version: '1.0'
+  namespace: DPv6_Product_Calculator_Soap
+  tags: []
+  type: SOAP
+spec:
+  api-spec:
+    $path: ./calculator-service.wsdl
+  rest-def:
+    $path: ./CalculatorApi-spec.yml
+  policy-sequence:
+    - $ref: DPv6_Product_Calculator_Soap:DPv6_Calculator_Assembly:1.0

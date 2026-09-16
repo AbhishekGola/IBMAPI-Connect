@@ -1,0 +1,161 @@
+{
+  "nodes": [
+    {
+      "id": "013872da-8ca6-4078-a41f-42b5b341c27d:0",
+      "projectId": "0m5flD1C",
+      "filePath": "DPv6_Product_Calculator_Soap/README.md",
+      "docIndex": 0,
+      "assetType": "support",
+      "lastIndexed": 1788912038631,
+      "schemaVersion": 1
+    },
+    {
+      "id": "3c218ff2-daa3-4a9c-8188-4679256e5234:0",
+      "projectId": "0m5flD1C",
+      "filePath": "DPv6_Product_Calculator_Soap/Dpv6_Calculator_Product.yml",
+      "docIndex": 0,
+      "assetType": "resource",
+      "lastIndexed": 1788912038534,
+      "schemaVersion": 1,
+      "kind": "Product",
+      "name": "Dpv6_Calculator_Product",
+      "namespace": "DPv6_Product_Calculator_Soap",
+      "version": "1.0",
+      "contentHash": "0b89a5b658d55b67"
+    },
+    {
+      "id": "55afa7ed-6c74-48a6-a6b5-4c4d62ead2b6:0",
+      "projectId": "0m5flD1C",
+      "filePath": "DPv6_Product_Calculator_Soap/calculator-service.wsdl",
+      "docIndex": 0,
+      "assetType": "support",
+      "lastIndexed": 1788912037733,
+      "schemaVersion": 1
+    },
+    {
+      "id": "71f2ff82-4429-4ec4-ac5e-7aac25d96359:0",
+      "projectId": "0m5flD1C",
+      "filePath": "DPv6_Product_Calculator_Soap/DPv6_Calculator_Plan.yml",
+      "docIndex": 0,
+      "assetType": "resource",
+      "lastIndexed": 1788912038418,
+      "schemaVersion": 1,
+      "kind": "Plan",
+      "name": "DPv6_Calculator_Plan",
+      "namespace": "DPv6_Product_Calculator_Soap",
+      "version": "1.0",
+      "contentHash": "496e709205abdd28"
+    },
+    {
+      "id": "bc1658ee-e296-4d8b-8cdf-b9f11642712a:0",
+      "projectId": "0m5flD1C",
+      "filePath": "DPv6_Product_Calculator_Soap/CalculatorApi-spec.yml",
+      "docIndex": 0,
+      "assetType": "support",
+      "lastIndexed": 1788912038019,
+      "schemaVersion": 1
+    },
+    {
+      "id": "f057a9f1-b145-4ac3-a15f-c176c5d0ed3f:0",
+      "projectId": "0m5flD1C",
+      "filePath": "DPv6_Product_Calculator_Soap/CalculatorApi.yml",
+      "docIndex": 0,
+      "assetType": "resource",
+      "lastIndexed": 1788912038118,
+      "schemaVersion": 1,
+      "kind": "API",
+      "name": "CalculatorApi",
+      "namespace": "DPv6_Product_Calculator_Soap",
+      "version": "1.0",
+      "contentHash": "cb09b1bd02c64c40"
+    },
+    {
+      "id": "f6d3a944-569b-4bfe-a93e-eb9555ae6f55:0",
+      "projectId": "0m5flD1C",
+      "filePath": "DPv6_Product_Calculator_Soap/DPv6_Calculator_Assembly.yml",
+      "docIndex": 0,
+      "assetType": "resource",
+      "lastIndexed": 1788912038280,
+      "schemaVersion": 1,
+      "kind": "DataPowerAssembly",
+      "name": "DPv6_Calculator_Assembly",
+      "namespace": "DPv6_Product_Calculator_Soap",
+      "version": "1.0",
+      "contentHash": "8a4d660d978759e1"
+    }
+  ],
+  "edges": [
+    {
+      "id": "3a175fc9-5d71-4e4c-8944-b33d4ea08655",
+      "projectId": "0m5flD1C",
+      "sourceNodeId": "3c218ff2-daa3-4a9c-8188-4679256e5234:0",
+      "targetNodeId": "71f2ff82-4429-4ec4-ac5e-7aac25d96359:0",
+      "targetRefType": "same-project",
+      "targetRefString": "DPv6_Product_Calculator_Soap:DPv6_Calculator_Plan:1.0",
+      "targetRefKind": "resource",
+      "isValid": true,
+      "createdAt": 1788912038541,
+      "lastValidated": 1788912038541
+    },
+    {
+      "id": "98539d22-642f-4527-be6a-3ca099d05d13",
+      "projectId": "0m5flD1C",
+      "sourceNodeId": "f057a9f1-b145-4ac3-a15f-c176c5d0ed3f:0",
+      "targetNodeId": "55afa7ed-6c74-48a6-a6b5-4c4d62ead2b6:0",
+      "targetRefType": "same-project",
+      "targetRefString": "./calculator-service.wsdl",
+      "targetRefKind": "support",
+      "isValid": true,
+      "createdAt": 1788912038128,
+      "lastValidated": 1788912038128
+    },
+    {
+      "id": "a9a946c3-2fd5-4242-a3f6-e529ee21bca1",
+      "projectId": "0m5flD1C",
+      "sourceNodeId": "71f2ff82-4429-4ec4-ac5e-7aac25d96359:0",
+      "targetNodeId": "f057a9f1-b145-4ac3-a15f-c176c5d0ed3f:0",
+      "targetRefType": "same-project",
+      "targetRefString": "DPv6_Product_Calculator_Soap:CalculatorApi:1.0",
+      "targetRefKind": "resource",
+      "isValid": true,
+      "createdAt": 1788912038424,
+      "lastValidated": 1788912038424
+    },
+    {
+      "id": "db5b7ce5-0f11-4d3e-bd3d-69a2f85cdbb5",
+      "projectId": "0m5flD1C",
+      "sourceNodeId": "3c218ff2-daa3-4a9c-8188-4679256e5234:0",
+      "targetNodeId": "f057a9f1-b145-4ac3-a15f-c176c5d0ed3f:0",
+      "targetRefType": "same-project",
+      "targetRefString": "DPv6_Product_Calculator_Soap:CalculatorApi:1.0",
+      "targetRefKind": "resource",
+      "isValid": true,
+      "createdAt": 1788912038541,
+      "lastValidated": 1788912038541
+    },
+    {
+      "id": "dc59321d-4d4d-43eb-bea6-a080d3d748dc",
+      "projectId": "0m5flD1C",
+      "sourceNodeId": "f057a9f1-b145-4ac3-a15f-c176c5d0ed3f:0",
+      "targetNodeId": "f6d3a944-569b-4bfe-a93e-eb9555ae6f55:0",
+      "targetRefType": "same-project",
+      "targetRefString": "DPv6_Product_Calculator_Soap:DPv6_Calculator_Assembly:1.0",
+      "targetRefKind": "resource",
+      "isValid": true,
+      "createdAt": 1788912038128,
+      "lastValidated": 1788912038342
+    },
+    {
+      "id": "e138ac42-b475-4260-9e01-49885575e26b",
+      "projectId": "0m5flD1C",
+      "sourceNodeId": "f057a9f1-b145-4ac3-a15f-c176c5d0ed3f:0",
+      "targetNodeId": "bc1658ee-e296-4d8b-8cdf-b9f11642712a:0",
+      "targetRefType": "same-project",
+      "targetRefString": "./CalculatorApi-spec.yml",
+      "targetRefKind": "support",
+      "isValid": true,
+      "createdAt": 1788912038128,
+      "lastValidated": 1788912038128
+    }
+  ]
+}

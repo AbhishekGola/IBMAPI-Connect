@@ -1,0 +1,21 @@
+kind: assertion
+apiVersion: api.ibm.com/v1
+metadata:
+  name: Basic_Assertion_wM
+  namespace: wM_Product_Weather
+  version: '1.0'
+  tags:
+    - assertion
+spec:
+  - name: Status code vaiadtion
+    key: responseStatus
+    value: 200
+    action: equals
+  - name: Status message validation
+    key: responseStatusText
+    value: OK
+    action: equals
+  - name: Response time validation
+    key: responseTime
+    value: 2000
+    action: lessThan

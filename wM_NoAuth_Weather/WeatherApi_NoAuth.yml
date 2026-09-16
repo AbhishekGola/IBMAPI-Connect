@@ -1,0 +1,13 @@
+kind: API
+apiVersion: api.ibm.com/v1
+metadata:
+  name: WeatherApi_NoAuth
+  namespace: wM_NoAuth_Weather
+  version: '1.0'
+  tags: []
+  type: REST
+spec:
+  api-spec:
+    $path: ./WeatherApi_NoAuth-spec.yml
+  policy-sequence:
+    - $ref: wM_NoAuth_Weather:wM_NoAuth_PolicySequence:1.0

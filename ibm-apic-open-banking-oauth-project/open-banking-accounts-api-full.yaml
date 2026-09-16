@@ -1,0 +1,566 @@
+
+swagger: '2.0'
+
+info:
+  title: Open Banking Accounts API
+  x-ibm-name: open-banking-accounts-api
+  version: 1.0.0
+  description: >
+    Open Banking Accounts API proxy secured using OAuth 2.0,
+    JWT validation, consent validation and Open Banking controls.
+
+schemes:
+  - https
+
+host: api.bank.example.com
+basePath: /open-banking/v3.1
+
+consumes:
+  - application/json
+
+produces:
+  - application/json
+
+securityDefinitions:
+
+  OpenBankingOAuth:
+    type: oauth2
+    flow: accessCode
+    authorizationUrl: https://REPLACE-AUTH-HOST/oauth2/authorize
+    tokenUrl: https://REPLACE-AUTH-HOST/oauth2/token
+    scopes:
+      accounts.read: Read account information
+      balances.read: Read account balances
+      transactions.read: Read account transactions
+      payments.initiate: Initiate a payment
+      payments.read: Read payment status
+      vrp.create: Create a VRP consent
+      vrp.read: Read a VRP consent
+      vrp.cancel: Cancel a VRP consent
+      cbpii.fundsconfirm: Confirm availability of funds
+
+security:
+  - OpenBankingOAuth:
+      - accounts.read
+
+parameters:
+
+  AuthorizationHeader:
+    name: Authorization
+    in: header
+    description: OAuth 2.0 bearer access token
+    required: true
+    type: string
+
+  FapiInteractionId:
+    name: x-fapi-interaction-id
+    in: header
+    description: Unique identifier for the API interaction
+    required: false
+    type: string
+
+  ConsentId:
+    name: x-ob-consent-id
+    in: header
+    description: Open Banking consent identifier
+    required: true
+    type: string
+
+paths:
+
+  /accounts:
+
+    get:
+      operationId: getAccounts
+      summary: Retrieve accounts authorised by the customer consent
+
+      parameters:
+        - $ref: '#/parameters/AuthorizationHeader'
+        - $ref: '#/parameters/FapiInteractionId'
+        - $ref: '#/parameters/ConsentId'
+
+      security:
+        - OpenBankingOAuth:
+            - accounts.read
+
+      responses:
+
+        '200':
+          description: Accounts successfully retrieved
+          schema:
+            $ref: '#/definitions/AccountResponse'
+
+        '400':
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/OpenBankingErrorResponse'
+
+        '401':
+          description: Invalid or expired access token
+          schema:
+            $ref: '#/definitions/OpenBankingErrorResponse'
+
+        '403':
+          description: Insufficient scope or invalid consent
+          schema:
+            $ref: '#/definitions/OpenBankingErrorResponse'
+
+        '429':
+          description: Rate limit exceeded
+          schema:
+            $ref: '#/definitions/OpenBankingErrorResponse'
+
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/OpenBankingErrorResponse'
+
+        '502':
+          description: Backend service unavailable
+          schema:
+            $ref: '#/definitions/OpenBankingErrorResponse'
+
+definitions:
+
+  AccountResponse:
+    type: object
+    properties:
+      Data:
+        type: object
+        properties:
+          Account:
+            type: array
+            items:
+              $ref: '#/definitions/Account'
+      Links:
+        type: object
+        properties:
+          Self:
+            type: string
+      Meta:
+        type: object
+
+  Account:
+    type: object
+    properties:
+      AccountId:
+        type: string
+      Status:
+        type: string
+      Currency:
+        type: string
+      AccountType:
+        type: string
+      AccountSubType:
+        type: string
+      Nickname:
+        type: string
+
+  OpenBankingErrorResponse:
+    type: object
+    properties:
+      Code:
+        type: string
+      Message:
+        type: string
+      Errors:
+        type: array
+        items:
+          type: object
+          properties:
+            ErrorCode:
+              type: string
+            Message:
+              type: string
+            Path:
+              type: string
+            Url:
+              type: string
+
+x-ibm-configuration:
+
+  gateway: REPLACE-CATALOG-GATEWAY
+  type: rest
+  phase: realised
+  enforced: true
+  testable: true
+
+  properties:
+
+    backend-url:
+      value: https://REPLACE-BACKEND-HOST
+      description: Open Banking backend base URL
+      encoded: false
+
+    expected-issuer:
+      value: https://REPLACE-AUTH-HOST
+      description: Expected JWT issuer
+      encoded: false
+
+    expected-audience:
+      value: open-banking-api
+      description: Expected access-token audience
+      encoded: false
+
+    jwt-verification-object:
+      value: REPLACE-JWK-OR-CRYPTO-OBJECT
+      description: DataPower JWK variable or crypto certificate
+      encoded: false
+
+  assembly:
+
+    execute:
+
+      - gatewayscript:
+          version: 2.0.0
+          title: Prepare security context
+          source: |
+            var authHeader = context.get(
+              'request.headers.authorization'
+            );
+
+            if (!authHeader || !/^Bearer\s+.+$/i.test(authHeader)) {
+              context.set('message.status.code', 401);
+              context.set('message.status.reason', 'Unauthorized');
+              context.set(
+                'message.headers.content-type',
+                'application/json'
+              );
+              context.set(
+                'message.body',
+                {
+                  Code: '401',
+                  Message: 'Missing or invalid bearer token',
+                  Errors: [{
+                    ErrorCode: 'UK.OBIE.Security.InvalidToken',
+                    Message: 'A valid OAuth bearer token is required'
+                  }]
+                }
+              );
+              context.reject('InvalidBearerToken');
+            }
+
+            var token = authHeader.replace(/^Bearer\s+/i, '');
+            context.set('openbanking.jwt', token);
+
+            var interactionId = context.get(
+              'request.headers.x-fapi-interaction-id'
+            );
+
+            if (!interactionId) {
+              interactionId =
+                Date.now().toString(36) +
+                '-' +
+                Math.random().toString(36).substring(2, 15);
+
+              context.set(
+                'request.headers.x-fapi-interaction-id',
+                interactionId
+              );
+            }
+
+            context.set(
+              'message.headers.x-fapi-interaction-id',
+              interactionId
+            );
+
+      - jwt-validate:
+          version: 2.0.0
+          title: Validate Open Banking access token
+          jwt: openbanking.jwt
+          output-claims: openbanking.claims
+          iss-claim: $(expected-issuer)
+          aud-claim: $(expected-audience)
+          jws-jwk: REPLACE-JWK-CONTEXT-VARIABLE
+
+          # Alternatively, use a DataPower crypto certificate:
+          # jws-crypto: REPLACE-DATAPOWER-CRYPTO-CERTIFICATE
+
+      - gatewayscript:
+          version: 2.0.0
+          title: Validate scopes, claims and consent
+          source: |
+            var claims = context.get('openbanking.claims') || {};
+            var requiredScope = 'accounts.read';
+
+            var tokenScope = claims.scope || claims.scp || '';
+            var scopes = [];
+
+            if (Array.isArray(tokenScope)) {
+              scopes = tokenScope;
+            } else if (typeof tokenScope === 'string') {
+              scopes = tokenScope.split(/\s+/);
+            }
+
+            if (scopes.indexOf(requiredScope) === -1) {
+              context.set('message.status.code', 403);
+              context.set('message.status.reason', 'Forbidden');
+              context.set(
+                'message.headers.content-type',
+                'application/json'
+              );
+              context.set(
+                'message.body',
+                {
+                  Code: '403',
+                  Message: 'Insufficient OAuth scope',
+                  Errors: [{
+                    ErrorCode: 'UK.OBIE.Security.InsufficientScope',
+                    Message: 'Required scope accounts.read is missing'
+                  }]
+                }
+              );
+              context.reject('InsufficientScope');
+            }
+
+            if (!claims.sub) {
+              context.set('message.status.code', 401);
+              context.set('message.status.reason', 'Unauthorized');
+              context.set(
+                'message.headers.content-type',
+                'application/json'
+              );
+              context.set(
+                'message.body',
+                {
+                  Code: '401',
+                  Message: 'Invalid access token',
+                  Errors: [{
+                    ErrorCode: 'UK.OBIE.Security.InvalidToken',
+                    Message: 'The subject claim is missing'
+                  }]
+                }
+              );
+              context.reject('MissingSubject');
+            }
+
+            var consentId = context.get(
+              'request.headers.x-ob-consent-id'
+            );
+
+            if (!consentId) {
+              context.set('message.status.code', 400);
+              context.set('message.status.reason', 'Bad Request');
+              context.set(
+                'message.headers.content-type',
+                'application/json'
+              );
+              context.set(
+                'message.body',
+                {
+                  Code: '400',
+                  Message: 'Consent identifier is required',
+                  Errors: [{
+                    ErrorCode: 'UK.OBIE.Field.Missing',
+                    Message: 'x-ob-consent-id header is required',
+                    Path: 'x-ob-consent-id'
+                  }]
+                }
+              );
+              context.reject('MissingConsentId');
+            }
+
+            if (claims.openbanking_intent_id &&
+                claims.openbanking_intent_id !== consentId) {
+              context.set('message.status.code', 403);
+              context.set('message.status.reason', 'Forbidden');
+              context.set(
+                'message.headers.content-type',
+                'application/json'
+              );
+              context.set(
+                'message.body',
+                {
+                  Code: '403',
+                  Message: 'Consent does not match the access token',
+                  Errors: [{
+                    ErrorCode: 'UK.OBIE.Security.InvalidConsent',
+                    Message: 'Consent identifier validation failed'
+                  }]
+                }
+              );
+              context.reject('ConsentMismatch');
+            }
+
+            context.set(
+              'request.headers.x-authenticated-subject',
+              claims.sub
+            );
+
+            context.set(
+              'request.headers.x-tpp-client-id',
+              claims.client_id || claims.azp || ''
+            );
+
+            context.set(
+              'request.headers.x-authorised-party',
+              claims.azp || ''
+            );
+
+            context.set(
+              'request.headers.x-token-jti',
+              claims.jti || ''
+            );
+
+      - ratelimit:
+          version: 2.0.0
+          title: Open Banking burst protection
+          source: catalog-named
+          name: REPLACE-CATALOG-RATE-LIMIT
+          operation: consume
+
+      - parse:
+          version: 2.1.0
+          title: Parse and enforce content limits
+          parse-settings-reference:
+            default: REPLACE-PARSE-SETTINGS-OBJECT
+
+      - set-variable:
+          version: 2.0.0
+          title: Set backend and security headers
+          actions:
+
+            - set: message.headers.x-content-type-options
+              value: nosniff
+              type: string
+
+            - set: message.headers.cache-control
+              value: no-store
+              type: string
+
+            - set: message.headers.pragma
+              value: no-cache
+              type: string
+
+            - set: message.headers.strict-transport-security
+              value: max-age=31536000; includeSubDomains
+              type: string
+
+            - set: message.headers.x-frame-options
+              value: DENY
+              type: string
+
+            - clear: message.headers.x-authenticated-subject
+
+            - clear: message.headers.x-tpp-client-id
+
+            - clear: message.headers.x-authorised-party
+
+            - clear: message.headers.x-token-jti
+
+      - invoke:
+          version: 2.0.0
+          title: Invoke Open Banking backend
+          verb: keep
+          target-url: $(backend-url)$(request.path)
+          timeout: 60
+          follow-redirects: false
+          inject-proxy-headers: true
+          persistent-connection: true
+          header-control:
+            type: blacklist
+            values:
+              - ^cookie$
+              - ^set-cookie$
+              - ^x-forwarded-client-cert$
+
+    catch:
+
+      - errors:
+          - InvalidBearerToken
+          - InsufficientScope
+          - MissingSubject
+          - MissingConsentId
+          - ConsentMismatch
+        execute:
+          - gatewayscript:
+              version: 2.0.0
+              title: Return Open Banking security error
+              source: |
+                var interactionId = context.get(
+                  'request.headers.x-fapi-interaction-id'
+                );
+
+                context.set(
+                  'message.headers.x-fapi-interaction-id',
+                  interactionId
+                );
+
+                context.set(
+                  'message.headers.cache-control',
+                  'no-store'
+                );
+
+                context.set(
+                  'message.headers.pragma',
+                  'no-cache'
+                );
+
+      - errors:
+          - BadRequestError
+          - AssemblyRateLimitError
+          - RateLimitError
+        execute:
+          - set-variable:
+              version: 2.0.0
+              title: Return rate-limit error
+              actions:
+                - set: message.status.code
+                  value: 429
+                  type: number
+                - set: message.status.reason
+                  value: Too Many Requests
+                  type: string
+                - set: message.headers.content-type
+                  value: application/json
+                  type: string
+                - set: message.body
+                  value: >-
+                    {
+                      "Code": "429",
+                      "Message": "Rate limit exceeded",
+                      "Errors": [
+                        {
+                          "ErrorCode": "UK.OBIE.Request.RateLimitExceeded",
+                          "Message": "The permitted request rate has been exceeded"
+                        }
+                      ]
+                    }
+                  type: string
+
+      - default:
+          - set-variable:
+              version: 2.0.0
+              title: Return generic gateway error
+              actions:
+                - set: message.status.code
+                  value: 500
+                  type: number
+                - set: message.status.reason
+                  value: Internal Server Error
+                  type: string
+                - set: message.headers.content-type
+                  value: application/json
+                  type: string
+                - set: message.body
+                  value: >-
+                    {
+                      "Code": "500",
+                      "Message": "The request could not be processed",
+                      "Errors": [
+                        {
+                          "ErrorCode": "UK.OBIE.UnexpectedError",
+                          "Message": "An unexpected gateway error occurred"
+                        }
+                      ]
+                    }
+                  type: string
+
+  activity-log:
+    enabled: true
+    success-content: activity
+    error-content: payload
+
+  cors:
+    enabled: false
+

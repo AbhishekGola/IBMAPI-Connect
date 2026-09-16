@@ -1,0 +1,101 @@
+{
+  "projects": {
+    "DPv6_Product_Calculator_Soap": {
+      "id": "0m5flD1C",
+      "description": "SOAP-based calculator API exposed as REST API with Product and Plan configuration.",
+      "tags": [
+        "DataPower API Gateway",
+        "soap-to-rest"
+      ],
+      "lastUpdated": 1788912038663
+    },
+    "DPv6_Product_MultiAPI": {
+      "id": "IBjRq23y",
+      "description": "Multi-API product with weather and storm APIs including quota limitations.",
+      "tags": [
+        "DataPower API Gateway",
+        "multi-api",
+        "product"
+      ],
+      "lastUpdated": 1788912040409
+    },
+    "DPv6_Product_Weather": {
+      "id": "KJZSUWNQ",
+      "description": "Weather API with Product and Plans having quota limitations.",
+      "tags": [
+        "DataPower API Gateway",
+        "quota-limiting"
+      ],
+      "lastUpdated": 1788959325963
+    },
+    "DPv5c_Product_Order": {
+      "id": "HoKLhpnT",
+      "description": "Order API with Product and Plan configuration having quota limitations.",
+      "tags": [
+        "DataPower Gateway v5",
+        "product",
+        "order-api"
+      ],
+      "lastUpdated": 1788912043446
+    },
+    "DPNano_Product_MultiAPI": {
+      "id": "1jalpGaE",
+      "description": "Multi-API product with weather and storm APIs for DataPower Nano Gateway",
+      "tags": [
+        "DataPower Nano Gateway",
+        "multi-api",
+        "product"
+      ],
+      "lastUpdated": 1788912046586
+    },
+    "DPNano_Product_Weather": {
+      "id": "CGweJPQl",
+      "description": "Authenticated Weather API with Products and Plans having unlimited quota.",
+      "tags": [
+        "DataPower Nano Gateway",
+        "weather-api",
+        "authentication"
+      ],
+      "lastUpdated": 1788912049420
+    },
+    "wM_APIKey_Weather": {
+      "id": "qFBmq8b8",
+      "description": "APIKey protected weather API with invoke and a logging policy.",
+      "tags": [
+        "webMethods Gateway",
+        "apikey"
+      ],
+      "lastUpdated": 1788912051471
+    },
+    "wM_NoAuth_Weather": {
+      "id": "HhKsqv0B",
+      "description": "Unauthenticated weather API with invoke and a logging policy. ",
+      "tags": [
+        "webMethods Gateway",
+        "no-auth"
+      ],
+      "lastUpdated": 1788912053416
+    },
+    "wM_Product_Weather": {
+      "id": "fZGn9240",
+      "description": "Weather API with Product and Plans having quota limitations.",
+      "tags": [
+        "webMethods Gateway",
+        "product"
+      ],
+      "lastUpdated": 1788912056207
+    },
+    "OB-ReverseProxy-test": {
+      "id": "gO3HU7Xe",
+      "description": "OB-ReverseProxy-test",
+      "tags": [],
+      "lastUpdated": 1789339068633
+    },
+    "ibm-apic-open-banking-oauth-project": {
+      "id": "MgDQca06",
+      "description": "ibm-apic-open-banking-oauth-project",
+      "tags": [],
+      "lastUpdated": 1789336737234
+    }
+  }
+}

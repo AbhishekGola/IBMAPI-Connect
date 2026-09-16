@@ -1,0 +1,173 @@
+{
+  "nodes": [
+    {
+      "id": "34eaf662-2179-4ec3-8aed-d95a96d9dd30:0",
+      "projectId": "MgDQca06",
+      "filePath": "ibm-apic-open-banking-oauth-project/open-banking-product.yaml",
+      "docIndex": 0,
+      "assetType": "support",
+      "lastIndexed": 1789336737209,
+      "schemaVersion": 1
+    },
+    {
+      "id": "5f363287-0fdc-414b-98bd-9558326794d0:0",
+      "projectId": "MgDQca06",
+      "filePath": "ibm-apic-open-banking-oauth-project/tests/test-calls.sh",
+      "docIndex": 0,
+      "assetType": "support",
+      "lastIndexed": 1789336739059,
+      "schemaVersion": 1
+    },
+    {
+      "id": "756de79b-1d8c-4c49-a6bb-ab0e25fc084c:0",
+      "projectId": "MgDQca06",
+      "filePath": "ibm-apic-open-banking-oauth-project/scripts/validate.sh",
+      "docIndex": 0,
+      "assetType": "support",
+      "lastIndexed": 1789336739058,
+      "schemaVersion": 1
+    },
+    {
+      "id": "802950a1-c197-4df5-b201-5f4fd7b45f66:0",
+      "projectId": "MgDQca06",
+      "filePath": "ibm-apic-open-banking-oauth-project/mock-backend/Dockerfile",
+      "docIndex": 0,
+      "assetType": "support",
+      "lastIndexed": 1789336739057,
+      "schemaVersion": 1
+    },
+    {
+      "id": "99538f19-ca6b-4b3c-bc29-4edd37c1d8b1:0",
+      "projectId": "MgDQca06",
+      "filePath": "ibm-apic-open-banking-oauth-project/products/open-banking-product.yaml",
+      "docIndex": 0,
+      "assetType": "support",
+      "lastIndexed": 1789336739057,
+      "schemaVersion": 1
+    },
+    {
+      "id": "9ddca9bf-93bd-42de-af82-799708568e08:0",
+      "projectId": "MgDQca06",
+      "filePath": "ibm-apic-open-banking-oauth-project/mock-backend/app.py",
+      "docIndex": 0,
+      "assetType": "support",
+      "lastIndexed": 1789336739056,
+      "schemaVersion": 1
+    },
+    {
+      "id": "9ed54360-8668-4793-aeec-99081915405c:0",
+      "projectId": "MgDQca06",
+      "filePath": "ibm-apic-open-banking-oauth-project/apis/open-banking-accounts-api.yaml",
+      "docIndex": 0,
+      "assetType": "support",
+      "lastIndexed": 1789336739055,
+      "schemaVersion": 1
+    },
+    {
+      "id": "af399ba3-24a2-4474-9d72-796c6760a43d:0",
+      "projectId": "MgDQca06",
+      "filePath": "ibm-apic-open-banking-oauth-project/scripts/publish.sh",
+      "docIndex": 0,
+      "assetType": "support",
+      "lastIndexed": 1789336739058,
+      "schemaVersion": 1
+    },
+    {
+      "id": "cfce8cad-26da-4ed6-b329-99217412413d:0",
+      "projectId": "MgDQca06",
+      "filePath": "ibm-apic-open-banking-oauth-project/open-banking-accounts-api.yaml",
+      "docIndex": 0,
+      "assetType": "support",
+      "lastIndexed": 1789336736906,
+      "schemaVersion": 1
+    },
+    {
+      "id": "d114867a-3c45-4776-a885-df32200370dc:0",
+      "projectId": "MgDQca06",
+      "filePath": "ibm-apic-open-banking-oauth-project/mock-backend/requirements.txt",
+      "docIndex": 0,
+      "assetType": "support",
+      "lastIndexed": 1789336739057,
+      "schemaVersion": 1
+    },
+    {
+      "id": "ddca8de6-167c-43b1-826a-cb4a47b5bec7:0",
+      "projectId": "MgDQca06",
+      "filePath": "ibm-apic-open-banking-oauth-project/.project-index",
+      "docIndex": 0,
+      "assetType": "support",
+      "lastIndexed": 1789336739060,
+      "schemaVersion": 1
+    },
+    {
+      "id": "e3ae6953-951b-4f2f-aa4e-b2f4e415ecb7:0",
+      "projectId": "MgDQca06",
+      "filePath": "ibm-apic-open-banking-oauth-project/apis/open-banking-oauth-provider.yaml",
+      "docIndex": 0,
+      "assetType": "support",
+      "lastIndexed": 1789336739056,
+      "schemaVersion": 1
+    },
+    {
+      "id": "fbf236b5-6531-44a3-8b81-82829095fbb2:0",
+      "projectId": "MgDQca06",
+      "filePath": "ibm-apic-open-banking-oauth-project/open-banking-oauth-provider.yaml",
+      "docIndex": 0,
+      "assetType": "support",
+      "lastIndexed": 1789336737069,
+      "schemaVersion": 1
+    }
+  ],
+  "edges": [
+    {
+      "id": "16c4a744-3598-4586-b71d-7afca0f4eee4",
+      "projectId": "MgDQca06",
+      "sourceNodeId": "99538f19-ca6b-4b3c-bc29-4edd37c1d8b1:0",
+      "targetNodeId": "e3ae6953-951b-4f2f-aa4e-b2f4e415ecb7:0",
+      "targetRefType": "same-project",
+      "targetRefString": "../apis/open-banking-oauth-provider.yaml",
+      "targetRefKind": "support",
+      "isValid": true,
+      "createdAt": 1789336739078,
+      "lastValidated": 1789336739078
+    },
+    {
+      "id": "6bda5187-e7cf-46ea-a839-3f34549a62a5",
+      "projectId": "MgDQca06",
+      "sourceNodeId": "34eaf662-2179-4ec3-8aed-d95a96d9dd30:0",
+      "targetNodeId": null,
+      "targetRefType": "same-project",
+      "targetRefString": "../apis/open-banking-oauth-provider.yaml",
+      "targetRefKind": "support",
+      "isValid": false,
+      "invalidReason": "Target file not found: apis/open-banking-oauth-provider.yaml",
+      "createdAt": 1789336737212,
+      "lastValidated": 1789336737212
+    },
+    {
+      "id": "81268b01-6910-4d81-a4a7-a1d3d05225d2",
+      "projectId": "MgDQca06",
+      "sourceNodeId": "34eaf662-2179-4ec3-8aed-d95a96d9dd30:0",
+      "targetNodeId": null,
+      "targetRefType": "same-project",
+      "targetRefString": "../apis/open-banking-accounts-api.yaml",
+      "targetRefKind": "support",
+      "isValid": false,
+      "invalidReason": "Target file not found: apis/open-banking-accounts-api.yaml",
+      "createdAt": 1789336737212,
+      "lastValidated": 1789336737212
+    },
+    {
+      "id": "97196d94-00d5-4c43-81b4-0ae64a22431a",
+      "projectId": "MgDQca06",
+      "sourceNodeId": "99538f19-ca6b-4b3c-bc29-4edd37c1d8b1:0",
+      "targetNodeId": "9ed54360-8668-4793-aeec-99081915405c:0",
+      "targetRefType": "same-project",
+      "targetRefString": "../apis/open-banking-accounts-api.yaml",
+      "targetRefKind": "support",
+      "isValid": true,
+      "createdAt": 1789336739077,
+      "lastValidated": 1789336739077
+    }
+  ]
+}
