@@ -54,13 +54,6 @@ projects:
       - webMethods Gateway
       - apikey
     lastUpdated: 1788912051471
-  wM_NoAuth_Weather:
-    id: HhKsqv0B
-    description: 'Unauthenticated weather API with invoke and a logging policy. '
-    tags:
-      - webMethods Gateway
-      - no-auth
-    lastUpdated: 1788912053416
   OB-ReverseProxy-test:
     id: gO3HU7Xe
     description: OB-ReverseProxy-test
