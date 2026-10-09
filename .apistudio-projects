@@ -47,13 +47,6 @@ projects:
       - weather-api
       - authentication
     lastUpdated: 1788912049420
-  wM_APIKey_Weather:
-    id: qFBmq8b8
-    description: APIKey protected weather API with invoke and a logging policy.
-    tags:
-      - webMethods Gateway
-      - apikey
-    lastUpdated: 1788912051471
   OB-ReverseProxy-test:
     id: gO3HU7Xe
     description: OB-ReverseProxy-test
