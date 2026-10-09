@@ -39,14 +39,6 @@ projects:
       - multi-api
       - product
     lastUpdated: 1788912046586
-  DPNano_Product_Weather:
-    id: CGweJPQl
-    description: Authenticated Weather API with Products and Plans having unlimited quota.
-    tags:
-      - DataPower Nano Gateway
-      - weather-api
-      - authentication
-    lastUpdated: 1788912049420
   OB-ReverseProxy-test:
     id: gO3HU7Xe
     description: OB-ReverseProxy-test
