@@ -31,14 +31,6 @@ projects:
       - product
       - order-api
     lastUpdated: 1788912043446
-  DPNano_Product_MultiAPI:
-    id: 1jalpGaE
-    description: Multi-API product with weather and storm APIs for DataPower Nano Gateway
-    tags:
-      - DataPower Nano Gateway
-      - multi-api
-      - product
-    lastUpdated: 1788912046586
   OB-ReverseProxy-test:
     id: gO3HU7Xe
     description: OB-ReverseProxy-test
